@@ -1,0 +1,42 @@
+# @package training
+_target_: src.train.trainer.ASRTrainer
+
+# Training configuration
+epochs: 10
+early_stopping:
+  enabled: true
+  patience: 3
+  min_delta: 0.001
+
+# Optimization
+optimizer:
+  _target_: torch.optim.AdamW
+  lr: 1e-4
+  weight_decay: 0.01
+  betas: [0.9, 0.999]
+  eps: 1e-8
+
+# Learning rate scheduling
+scheduler:
+  _target_: transformers.get_linear_schedule_with_warmup
+  num_warmup_steps: 1000
+  num_training_steps: null  # Will be set automatically
+
+# Checkpointing
+checkpointing:
+  save_every_n_epochs: 1
+  save_best: true
+  save_last: true
+  monitor_metric: "val_wer"
+  mode: "min"
+
+# Validation
+validation:
+  frequency: 1  # Validate every N epochs
+  metrics: ["wer", "cer", "accent_wer"]
+
+# Logging
+logging:
+  log_every_n_steps: 100
+  log_audio_samples: true
+  log_spectrograms: true

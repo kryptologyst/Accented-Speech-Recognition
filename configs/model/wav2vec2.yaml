@@ -1,0 +1,28 @@
+# @package model
+_target_: src.models.wav2vec2.Wav2Vec2ASRModel
+
+# Model architecture
+architecture:
+  model_name: "facebook/wav2vec2-large-960h"
+  freeze_feature_extractor: false
+  freeze_feature_encoder: false
+  apply_spec_augment: true
+  mask_time_prob: 0.05
+  mask_time_length: 10
+  mask_feature_prob: 0.0
+  mask_feature_length: 64
+
+# Training configuration
+training:
+  learning_rate: 1e-4
+  weight_decay: 0.01
+  warmup_steps: 1000
+  max_grad_norm: 1.0
+  gradient_accumulation_steps: 1
+
+# Inference configuration
+inference:
+  beam_size: 1
+  length_penalty: 1.0
+  early_stopping: true
+  max_length: 448

@@ -1,0 +1,43 @@
+# @package _global_
+defaults:
+  - model: wav2vec2
+  - data: common_voice
+  - training: default
+  - evaluation: default
+  - _self_
+
+# Project configuration
+project:
+  name: "accented-speech-recognition"
+  version: "1.0.0"
+  description: "Modern ASR system for accented speech"
+
+# Paths
+paths:
+  data_dir: "data"
+  raw_data_dir: "data/raw"
+  processed_data_dir: "data/processed"
+  checkpoints_dir: "checkpoints"
+  outputs_dir: "outputs"
+  assets_dir: "assets"
+
+# Device configuration
+device: "auto"  # auto, cuda, mps, cpu
+
+# Random seed for reproducibility
+seed: 42
+
+# Logging
+logging:
+  level: "INFO"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  wandb:
+    enabled: true
+    project: "accented-speech-recognition"
+    entity: null
+
+# Privacy and ethics
+privacy:
+  log_pii: false
+  anonymize_filenames: true
+  disclaimer_shown: true

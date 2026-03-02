@@ -1,0 +1,64 @@
+# @package data
+_target_: src.data.accent_dataset.AccentDataset
+
+# Dataset configuration
+dataset:
+  name: "common_voice"
+  language: "en"
+  version: "11.0"
+  cache_dir: "data/cache"
+  
+# Data loading
+loading:
+  batch_size: 8
+  num_workers: 4
+  pin_memory: true
+  shuffle: true
+  
+# Audio preprocessing
+audio:
+  sample_rate: 16000
+  max_duration: 20.0
+  min_duration: 0.5
+  normalize: true
+  preemphasis: 0.97
+  
+# Feature extraction
+features:
+  feature_type: "raw"  # raw, log_mel, mfcc
+  n_fft: 1024
+  hop_length: 320
+  win_length: 1024
+  n_mels: 80
+  f_min: 0
+  f_max: 8000
+  
+# Data augmentation
+augmentation:
+  enabled: true
+  speed_perturbation:
+    enabled: true
+    min_speed: 0.9
+    max_speed: 1.1
+  spec_augment:
+    enabled: true
+    time_mask_param: 27
+    freq_mask_param: 12
+    time_mask_num: 2
+    freq_mask_num: 2
+  noise_augmentation:
+    enabled: false
+    noise_factor: 0.1
+    
+# Accent-specific configuration
+accent:
+  focus_accent: null  # null for all accents, or specific accent name
+  balance_accents: true
+  accent_weights: null  # null for equal weights
+  
+# Data splits
+splits:
+  train_ratio: 0.8
+  val_ratio: 0.1
+  test_ratio: 0.1
+  speaker_independent: true  # Ensure no speaker leakage between splits

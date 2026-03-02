@@ -1,0 +1,27 @@
+# @package evaluation
+_target_: src.eval.evaluator.ASREvaluator
+
+# Evaluation configuration
+metrics:
+  primary: "wer"
+  secondary: ["cer", "accent_wer", "confidence_calibration"]
+  
+# Detailed analysis
+analysis:
+  per_accent: true
+  per_speaker: true
+  confidence_analysis: true
+  error_analysis: true
+  
+# Output configuration
+output:
+  save_predictions: true
+  save_audio_samples: true
+  generate_report: true
+  report_format: "html"  # html, pdf, markdown
+  
+# Confidence calibration
+confidence:
+  enabled: true
+  bins: 10
+  method: "equal_width"  # equal_width, equal_frequency
